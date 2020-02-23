@@ -98,7 +98,7 @@ def validate_list(ls):
     """
     Check if the list has duplicate 1 - 9
 
-    helper function for validate_board()
+    helper function for validate_board() and validate_number()
     :param ls: collection of numbers from a row/col/box
     :return: False if the list has duplicate
     """
