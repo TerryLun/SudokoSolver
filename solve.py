@@ -48,12 +48,53 @@ def validate_board(board):
     return True
 
 
+def validate_number(board, num, pos):
+    """
+    Check if the specific number can insert into the specific position
+
+    :param board: sudoku board
+    :param num: number to insert to the board
+    :param pos: position of the number, tuple: (x, y)
+    :return: bool T/F
+    """
+    x = pos[0]
+    y = pos[1]
+    ls = []
+    # row
+    for n in board[x]:
+        ls.append(n)
+    ls.append(num)
+    if not validate_list(ls):
+        return False
+    ls.clear()
+
+    # col
+    for r in board:
+        ls.append(r[y])
+    ls.append(num)
+    if not validate_list(ls):
+        return False
+    ls.clear()
+
+    # box
+    box_x_start = x // 3
+    box_y_start = y // 3
+    for i in range(box_x_start, box_x_start + 3):
+        for j in range(box_y_start, box_y_start + 3):
+            ls.append(board[i][j])
+    ls.append(num)
+    if not validate_list(ls):
+        return False
+
+    return True
+
+
 def validate_list(ls):
     """
     Check if the list has duplicate 1 - 9
 
     helper function for validate_board()
-    :param ls:
+    :param ls: collection of numbers from a row/col/box
     :return: False if the list has duplicate
     """
     for n in range(1, 10):
@@ -68,7 +109,6 @@ def print_board(board):
         print(*r)
 
 
-
 def main():
     board = [
         [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -81,9 +121,9 @@ def main():
         [0, 0, 0, 4, 1, 9, 0, 0, 5],
         [0, 0, 0, 0, 8, 0, 0, 7, 9]
     ]
-    print(validate_board(board))
+
     print_board(board)
-    print(pick_empty(board))
+    print('Valid board') if validate_board(board) else 'Invalid board'
 
 
 if __name__ == '__main__':
