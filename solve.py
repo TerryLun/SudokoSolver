@@ -13,30 +13,39 @@ def validate_board(board):
                 return False
     # check row
     for r in board:
-        for n in range(1, 10):
-            if r.count(n) >= 2:
-                return False
+        if not validate_list(r):
+            return False
     # check col
     for c in range(len(board[0])):
         col_list = []
         for r in range(len(board)):
             col_list.append(board[r][c])
-        for n in range(1, 10):
-            if col_list.count(n) >= 2:
-                return False
+        if not validate_list(col_list):
+            return False
     # check box
     """
-    0 -> 0-2, 0-2
-    1 -> 3-5, 0-2
-    2 -> 6-8, 0-2
-    3 -> 0-2, 3-5
-    4 -> 3-5, 3-5
-    5 -> 6-8, 3-5
-    6 -> 0-2, 6-8
-    7 -> 3-5, 6-8
-    8 -> 6-8, 6-8
+    box mid points
+    1,1  1,4  1,7
+    4,1  4,4  4,7  
+    7,1  7,4  7,7
     """
+    for center_x in range(1, 8, 3):
+        for center_y in range(1, 8, 3):
+            box_list = []
+            for adj_x in range(-1, 2):
+                for adj_y in range(-1, 2):
+                    box_list.append(board[center_x + adj_x][center_y + adj_y])
+            if not validate_list(box_list):
+                return False
+            box_list.clear()
 
+    return True
+
+
+def validate_list(ls):
+    for n in range(1, 10):
+        if ls.count(n) >= 2:
+            return False
     return True
 
 
