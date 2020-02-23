@@ -43,6 +43,13 @@ def validate_board(board):
 
 
 def validate_list(ls):
+    """
+    Check if the list has duplicate 1 - 9
+
+    helper function for validate_board()
+    :param ls:
+    :return: False if the list has duplicate
+    """
     for n in range(1, 10):
         if ls.count(n) >= 2:
             return False
