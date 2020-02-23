@@ -8,6 +8,12 @@ def pick_empty(board):
 
 
 def validate_board(board):
+    """
+    validate board size, number range, duplicates in row/col/box
+
+    :param board: sudoku board
+    :return: bool T/F
+    """
     # check size
     if len(board) != 9:
         return False
