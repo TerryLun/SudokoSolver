@@ -1,4 +1,10 @@
-from numpy import matrix
+def pick_empty(board):
+    for r in range(len(board)):
+        for c in range(len(board)):
+            if board[r][c] == 0:
+                return r, c
+    else:
+        return None
 
 
 def validate_board(board):
@@ -57,7 +63,10 @@ def validate_list(ls):
 
 
 def print_board(board):
-    print(matrix(board))
+    # print(matrix(board))
+    for r in board:
+        print(*r)
+
 
 
 def main():
@@ -73,6 +82,8 @@ def main():
         [0, 0, 0, 0, 8, 0, 0, 7, 9]
     ]
     print(validate_board(board))
+    print_board(board)
+    print(pick_empty(board))
 
 
 if __name__ == '__main__':
