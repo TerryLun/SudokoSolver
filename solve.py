@@ -57,9 +57,14 @@ def validate_number(board, num, pos):
     :param pos: position of the number, tuple: (x, y)
     :return: bool T/F
     """
+    # check number
+    if not 1 <= num <= 9:
+        return False
+
     x = pos[0]
     y = pos[1]
     ls = []
+
     # row
     for n in board[x]:
         ls.append(n)
