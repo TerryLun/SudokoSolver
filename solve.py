@@ -1,4 +1,10 @@
 def pick_empty(board):
+    """
+    pick an empty cell in the board
+
+    :param board: sudoku board
+    :return: (x, y) for the empty cell, None if board is full
+    """
     for r in range(len(board)):
         for c in range(len(board)):
             if board[r][c] == 0:
