@@ -104,7 +104,6 @@ def validate_list(ls):
 
 
 def print_board(board):
-    # print(matrix(board))
     for r in board:
         print(*r)
 
