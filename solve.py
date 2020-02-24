@@ -73,8 +73,7 @@ def validate_number(board, num, pos):
     if not 1 <= num <= 9:
         return False
 
-    x = pos[0]
-    y = pos[1]
+    x, y = pos
     ls = []
 
     # row
@@ -94,8 +93,8 @@ def validate_number(board, num, pos):
     ls.clear()
 
     # box
-    box_x_start = x // 3
-    box_y_start = y // 3
+    box_x_start = (x // 3) * 3
+    box_y_start = (y // 3) * 3
     for i in range(box_x_start, box_x_start + 3):
         for j in range(box_y_start, box_y_start + 3):
             ls.append(board[i][j])
@@ -125,6 +124,21 @@ def print_board(board):
         print(*r)
 
 
+def solve(board):
+    empty = pick_empty(board)
+    if not empty:
+        return True
+    else:
+        r, c = empty
+    for num in range(1, 10):
+        if validate_number(board, num, empty):
+            board[r][c] = num
+            if solve(board):
+                return True
+            board[r][c] = 0
+    return False
+
+
 def main():
     board = [
         [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -138,8 +152,23 @@ def main():
         [0, 0, 0, 0, 8, 0, 0, 7, 9]
     ]
 
-    print_board(board)
-    print('Valid board') if validate_board(board) else 'Invalid board'
+    board2 = [
+        [0, 0, 0, 0, 8, 0, 0, 0, 0],
+        [9, 0, 2, 0, 4, 1, 5, 0, 0],
+        [0, 0, 3, 7, 0, 9, 0, 6, 0],
+        [0, 0, 0, 0, 0, 0, 0, 7, 4],
+        [3, 0, 0, 0, 0, 0, 0, 0, 5],
+        [5, 2, 0, 0, 0, 0, 0, 0, 0],
+        [0, 4, 0, 5, 0, 7, 3, 0, 0],
+        [0, 0, 8, 2, 3, 0, 7, 0, 1],
+        [0, 0, 0, 0, 9, 0, 0, 0, 0]
+    ]
+
+    print_board(board2)
+    print(validate_board(board2))
+    solve(board2)
+    print_board(board2)
+    print(validate_board(board2))
 
 
 if __name__ == '__main__':
