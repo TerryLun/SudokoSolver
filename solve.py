@@ -126,15 +126,22 @@ def print_board(board):
 
 def solve(board):
     empty = pick_empty(board)
+    # base case
     if not empty:
         return True
     else:
         r, c = empty
+    # loop through 1-9
     for num in range(1, 10):
+        # check if it can insert into the picked empty space
         if validate_number(board, num, empty):
+            # insert the number into the picked empty space
             board[r][c] = num
+            # if it reaches the end of this function, that means no number can insert into this space
+            # so the previous number is invalid
             if solve(board):
                 return True
+            # reset this number then go back to the previous number and try next
             board[r][c] = 0
     return False
 
